@@ -1,1 +1,42 @@
+#include <iostream>
+#include <vector>
+
+unsigned long long ackermannRecursive(unsigned long long m, unsigned long long n) {
+    if (m == 0) {
+        return n + 1;
+    } 
+    if (n == 0) {
+        return ackermannRecursive(m - 1, 1);
+    } 
+    return ackermannRecursive(m - 1, ackermannRecursive(m, n - 1));
+}
+
+unsigned long long ackermannIterative(unsigned long long m, unsigned long long n) {
+    std::vector<unsigned long long> st;
+    st.push_back(m);
+
+    while (!st.empty()) {
+        m = st.back();
+        st.pop_back();
+
+        if (m == 0) {
+            n = n + 1;
+        } else if (n == 0) {
+            n = 1;
+            st.push_back(m - 1);
+        } else {
+            st.push_back(m - 1);
+            st.push_back(m);
+            n = n - 1;
+        }
+    }
+    return n;
+}
+
+int main() {
+    unsigned long long m = 2, n = 2;
+    std::cout << "Recursive Output: " << ackermannRecursive(m, n) << std::endl;
+    std::cout << "Iterative Output: " << ackermannIterative(m, n) << std::endl;
+    return 0;
+}
 
