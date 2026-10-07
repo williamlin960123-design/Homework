@@ -1,1 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <string>
 
+void generatePowerset(const std::vector<std::string>& set, size_t index, std::vector<std::string>& current) {
+    if (index == set.size()) {
+        std::cout << "{ ";
+        for (size_t i = 0; i < current.size(); ++i) {
+            std::cout << current[i] << (i + 1 < current.size() ? ", " : " ");
+        }
+        std::cout << "}\n";
+        return;
+    }
+
+    generatePowerset(set, index + 1, current);
+
+    current.push_back(set[index]);
+    generatePowerset(set, index + 1, current);
+    
+    current.pop_back();
+}
+
+int main() {
+    std::vector<std::string> S = {"a", "b", "c"};
+    std::vector<std::string> current;
+    generatePowerset(S, 0, current);
+    return 0;
+}
