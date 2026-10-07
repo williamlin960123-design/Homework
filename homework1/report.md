@@ -24,7 +24,6 @@ Ackermann 函數的算術規則如下：
 #include <iostream>
 #include <vector>
 
-// 遞迴實作版本
 unsigned long long ackermannRecursive(unsigned long long m, unsigned long long n) {
     if (m == 0) {
         return n + 1;
@@ -35,7 +34,6 @@ unsigned long long ackermannRecursive(unsigned long long m, unsigned long long n
     return ackermannRecursive(m - 1, ackermannRecursive(m, n - 1));
 }
 
-// 非遞迴實作版本 (利用 vector 模擬 Stack 堆疊操作)
 unsigned long long ackermannIterative(unsigned long long m, unsigned long long n) {
     std::vector<unsigned long long> st;
     st.push_back(m);
@@ -137,14 +135,11 @@ void generatePowerset(const std::vector<std::string>& set, size_t index, std::ve
         return;
     }
 
-    // 分支 1：不選擇當前元素
     generatePowerset(set, index + 1, current);
 
-    // 分支 2：選擇當前元素
     current.push_back(set[index]);
     generatePowerset(set, index + 1, current);
     
-    // Backtrack 回溯恢復狀態
     current.pop_back();
 }
 
